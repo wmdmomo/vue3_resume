@@ -1,0 +1,36 @@
+.field {
+    display: flex;
+    flex-direction: column;
+}
+.field-title {
+    font-size: 23px;
+    color: #222;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 20px;
+}
+.field-mid {
+    display: flex;
+    font-size: 16px;
+    color: #222;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.field-mid span{
+    text-align: left;
+}
+.field-mid span:nth-child(1) {
+    flex: 1 1 40%;
+}
+.field-mid span:nth-child(2) {
+    flex: 1 1 20%;
+}
+.field-mid span:nth-child(3) {
+    flex: 1 1 40%;
+    text-align: right;
+}
+.field-content {
+    font-size: 15px;
+    color: #6c6c6c;
+    word-break: break-all;
+}
