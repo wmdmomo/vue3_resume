@@ -1,7 +1,8 @@
 <template>
   <el-upload
     class="avatar-uploader"
-    action="https://jsonplaceholder.typicode.com/posts/"
+    action="#"
+    :http-request="httpRequest"
     :show-file-list="false"
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload"
@@ -24,8 +25,10 @@
       v-model:formInline_copy="formInline"
     />
   </div>
+  <!-- <button @click="ff">fff</button> -->
 </template>
 <script>
+import { getPlanList } from './../../utils/api'
 import BaseInfo from './BaseInfo.vue'
 export default {
   data() {
@@ -34,7 +37,30 @@ export default {
       imageUrl: ''
     }
   },
+
   methods: {
+    async ff() {
+      var nn = 11
+      //   request({ url: '/api/plan', method: 'post', nn })
+      //   this.$http.post('/api/posts/').then((res) => {
+      //     console.log(res)
+      //   })
+      //   this.$http.get('/api').then((res) => {
+      //     console.log(res)
+      //   })
+      var res = await getPlanList()
+      console.log(res)
+    },
+    httpRequest(data) {
+      let _this = this
+      let rd = new FileReader() // 创建文件读取对象
+      let file = data.file
+      rd.readAsDataURL(file) // 文件读取装换为base64类型
+      rd.onloadend = function (e) {
+        console.log(e)
+        _this.imageUrl = this.result // this指向当前方法onloadend的作用域
+      }
+    },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },

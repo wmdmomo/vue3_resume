@@ -1,11 +1,29 @@
 <template>
-  <div class="skil-stack">
-    <div class="skill-item" v-for="(item, index) in skillList" :key="index">
+  <div
+    class="skil-stack"
+    @mouseover="triggerEvent(1)"
+    @mouseleave="triggerEvent(0)"
+  >
+    <div
+      class="skill-item"
+      v-for="(item, index) in skillList"
+      :key="index"
+      :class="{ triggerclass: showFlag }"
+    >
       <span class="skill-name" contenteditable="true">{{ item.title }}</span>
-      <div class="skill-progress" @click="handleGrag($event, index)">
-        <div class="progress" :style="{ width: offset[index] + 'px' }"></div>
+      <div class="skill-con">
+        <div class="skill-progress" @click="handleGrag($event, index)">
+          <div class="progress" :style="{ width: offset[index] + 'px' }"></div>
+        </div>
+        <span
+          v-show="showFlag"
+          class="item-deco"
+          @click="skillList.splice(index, 1)"
+          >x</span
+        >
       </div>
     </div>
+    <div class="skill-add" @click="addSkill">添加专业技能</div>
   </div>
 </template>
 <script>
@@ -15,15 +33,28 @@ export default {
   props: {
     skillList: Object
   },
-  setup() {
+  setup(props) {
+    const showFlag = ref(false)
+    var skills = props.skillList
     var offset = reactive([])
 
     var handleGrag = (e, index) => {
       offset[index] = e.offsetX
     }
+    var triggerEvent = (val) => {
+      showFlag.value = val
+    }
+
+    var addSkill = () => {
+      skills.push({ title: '专业技能', level: 0 })
+    }
     return {
+      showFlag,
+      skills,
       offset,
-      handleGrag
+      handleGrag,
+      addSkill,
+      triggerEvent
     }
   }
 }
@@ -38,6 +69,25 @@ export default {
 }
 .skill-item {
   margin-bottom: 12%;
+}
+.skill-con{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.triggerclass {
+  border: 1px #222 dashed;
+  padding: 2%;
+}
+.skill-add {
+  text-align: center;
+  padding: 2%;
+  border: 1px #222 dashed;
+}
+.item-deco {
+  color: red;
+  cursor: pointer;
+  margin-left: 2%;
 }
 .skill-progress {
   width: 100%;
