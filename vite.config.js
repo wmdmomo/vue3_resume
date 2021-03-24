@@ -4,9 +4,8 @@ module.exports = {
     hostname: 'localhost',
     port: 3000,
     base: './',
-    build: {
-        assetsDir: 'test'
-    },
+    outDir: 'dist',
+    assetsDir: 'test',
     // 反向代理
     proxy: {
         '/api': {
