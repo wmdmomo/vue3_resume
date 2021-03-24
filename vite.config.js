@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
     hostname: 'localhost',
     port: 3000,
-    base: './',
+    base: '/vue3_resume',
     outDir: 'dist',
     assetsDir: 'test',
     // 反向代理
