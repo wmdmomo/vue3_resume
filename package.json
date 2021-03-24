@@ -1,7 +1,7 @@
 {
     "name": "resume",
     "version": "0.0.0",
-    "homepage":"https://wmdmomo.github.io/vue3_resume"
+    "homepage":"https://wmdmomo.github.io/vue3_resume",
     "scripts": {
         "dev": "vite",
         "build": "vite build"
