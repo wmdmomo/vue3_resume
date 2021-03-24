@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
     hostname: 'localhost',
     port: 3000,
-    base: '/vue3_resume/',
+    base: './',
     // 反向代理
     proxy: {
         '/api': {
