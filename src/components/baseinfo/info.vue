@@ -14,9 +14,16 @@
     <div v-for="(info, index) in infoValue" :key="index" class="info-wrap">
       <span v-if="index !== 0" class="info-label">{{ info.label }}</span>
       <span v-if="index !== 0" class="info-label">:</span>
-      <span :class="index === 0 ? 'boldClass' : 'normClass'">{{
-        formInline[info.key]
-      }}</span>
+      <span v-if="info.label !== '出生年月'">
+        <span :class="index === 0 ? 'boldClass' : 'normClass'">{{
+          formInline[info.key]
+        }}</span>
+      </span>
+      <span v-else>
+        <span :class="index === 0 ? 'boldClass' : 'normClass'">{{
+          formateDate(formInline[info.key])
+        }}</span>
+      </span>
     </div>
   </div>
   <div class="lay-form" v-if="showFlag">
@@ -51,6 +58,20 @@ export default {
       var res = await getPlanList()
       console.log(res)
     },
+    formateDate(datetime) {
+      let d = new Date(datetime)
+      let formatdatetime =
+        d.getFullYear() +
+        '-' +
+        this.addDateZero(d.getMonth() + 1) +
+        '-' +
+        this.addDateZero(d.getDate())
+      return formatdatetime
+    },
+    addDateZero(num) {
+      return num < 10 ? '0' + num : num
+    },
+
     httpRequest(data) {
       let _this = this
       let rd = new FileReader() // 创建文件读取对象
@@ -81,12 +102,12 @@ export default {
     var infoValue = [
       { label: '姓名', key: 'user', value: 'wmd' },
       { label: '性别', key: 'sex', value: '女' },
-      { label: '出生年月', key: 'date', value: '1997-01-18' },
-      { label: '工作经验', key: 'exper', value: '女' },
-      { label: '手机号码', key: 'phone', value: '女' },
-      { label: '邮箱地址', key: 'email', value: '女' },
-      { label: '学历', key: 'edu', value: '女' },
-      { label: '意向岗位', key: 'post', value: '女' }
+      { label: '出生年月', key: 'date', value: '2021-04-01' },
+      { label: '工作经验', key: 'exper', value: '应届生' },
+      { label: '手机号码', key: 'phone', value: '123' },
+      { label: '邮箱地址', key: 'email', value: 'qq' },
+      { label: '学历', key: 'edu', value: '本科' },
+      { label: '意向岗位', key: 'post', value: '前端' }
     ]
     var formInline = {}
     infoValue.forEach((item) => {

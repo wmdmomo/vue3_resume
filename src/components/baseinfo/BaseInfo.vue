@@ -4,12 +4,7 @@
       <span>基本信息</span>
       <span @click="onCancel">x</span>
     </div>
-    <el-form
-      ref="form"
-      :model="formInline"
-      label-width="80px"
-      class="add-style"
-    >
+    <el-form :model="formInline" label-width="80px" class="add-style">
       <el-row>
         <el-col :span="10">
           <el-form-item label="姓名">
@@ -22,8 +17,8 @@
         <el-col :span="10">
           <el-form-item label="性别">
             <el-select v-model="formInline.sex" placeholder="请选择">
-              <el-option label="男" value="man"></el-option>
-              <el-option label="女" value="female"></el-option>
+              <el-option label="男" value="男"></el-option>
+              <el-option label="女" value="女"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -33,7 +28,7 @@
           <el-form-item label="出生年月">
             <el-date-picker
               v-model="formInline.date"
-              type="datetime"
+              type="date"
               placeholder="选择日期时间"
             >
             </el-date-picker>
@@ -42,10 +37,10 @@
         <el-col :span="10">
           <el-form-item label="工作经验">
             <el-select v-model="formInline.exper" placeholder="请选择">
-              <el-option label="应届生" value="exp_Graduate"></el-option>
-              <el-option label="在校生" value="exp_School"></el-option>
-              <el-option label="无经验" value="exp_none"></el-option>
-              <el-option label="1年" value="exp_one"></el-option>
+              <el-option label="应届生" value="应届生"></el-option>
+              <el-option label="在校生" value="在校生"></el-option>
+              <el-option label="无经验" value="无经验"></el-option>
+              <el-option label="1年" value="1年"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -72,12 +67,12 @@
         <el-col :span="10">
           <el-form-item label="学历">
             <el-select v-model="formInline.edu" placeholder="请选择">
-              <el-option label="大专" value="edu_1"></el-option>
-              <el-option label="本科" value="edu_2"></el-option>
-              <el-option label="硕士" value="edu_3"></el-option>
-              <el-option label="博士" value="edu_4"></el-option>
-              <el-option label="中专" value="edu_5"></el-option>
-              <el-option label="其它" value="edu_6"></el-option>
+              <el-option label="大专" value="大专"></el-option>
+              <el-option label="本科" value="本科"></el-option>
+              <el-option label="硕士" value="硕士"></el-option>
+              <el-option label="博士" value="博士"></el-option>
+              <el-option label="中专" value="中专"></el-option>
+              <el-option label="其它" value="其它"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -91,14 +86,14 @@
         </el-col>
       </el-row>
       <div class="btn">
-        <el-button type="primary" @click="onSubmit()">保存</el-button>
+        <el-button type="primary" @click="onSubmit(formInline)">保存</el-button>
         <el-button type="info" @click="onCancel()">取消</el-button>
       </div>
     </el-form>
   </div>
 </template>
 <script>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 export default {
   //   data() {
   //     return {
@@ -122,18 +117,24 @@ export default {
       context.emit('update:showFlag', false)
       return formInline
     }
+
     const onSubmit = () => {
-      console.log('sss', formInline)
       context.emit(
         'update:formInline_copy',
         JSON.parse(JSON.stringify(formInline))
       )
+
       context.emit('update:showFlag', false)
+    }
+    var dateChange = (data) => {
+      console.log(data)
+      formInline.date = data
     }
     return {
       onCancel,
       onSubmit,
-      formInline
+      formInline,
+      dateChange
     }
   }
 }
